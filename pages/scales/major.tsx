@@ -10,7 +10,7 @@ const Fretboard = dynamic(() => import('../../components/fretboard/FretBoard'), 
 
 const MajorScale: NextPage = () => {
 
-    const notes: NoteType = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+    const notes: NoteType = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
     return (
         <DefaultLayout>

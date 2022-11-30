@@ -1,3 +1,5 @@
+import { Systems } from '@moonwave99/fretboard.js'
+import { NoteType } from 'interfaces'
 import type { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { Suspense, useState } from 'react'
@@ -14,23 +16,22 @@ const dots = [
   },
 ]
 
-const dots2 = [
-  {
-    string: 2,
-    fret: 5,
-  },
-]
-
 const scale = {
   type: 'minor',
   root: 'A'
 }
 
+const notes: NoteType = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
 const Home: NextPage = () => {
 
   const [options, setoOptions] = useState({
     type: 'minor',
-    root: 'A'    
+    root: 'A',
+    box: {
+      system: Systems.pentatonic,
+      box: 1,
+  },
   })
 
   const handleChange = (name: string) => (event: React.FormEvent<HTMLSelectElement>): void => {
@@ -38,38 +39,40 @@ const Home: NextPage = () => {
     setoOptions({ ...options, [name]: value })
   }
 
+  const handleClick = (event: MouseEvent, note: string) => {
+    return setoOptions({ ...options, ['root']: note })
+  }
+
   return (
     <DefaultLayout>
       <h1>Gammes, Licks, Accords</h1>
 
-      <form>
+      {/* <form>
         <select onChange={handleChange('root')} name="scale" id="scale" value={options.root}>
-          <option value="C">C</option>
-          <option value="D">D</option>
-          <option value="E">E</option>
-          <option value="F">F</option>
-          <option value="G">G</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
+          {notes.map((note) => (<option key={note} value={note}>{note}</option>))}
         </select>
-      </form>
+      </form> */}
+
+      <h2>Gamme {options.root} </h2>
+      <div className="btn-group">
+        {notes.map((note) => (<button key={note} onClick={event => handleClick(event, note)} className="btn">{note}</button>))}
+      </div>
 
       <form>
         <select onChange={handleChange('type')} name="scaleType" id="scaleType">
           <option value="major">Major</option>
-          <option value="minor">Minor</option>
+          <option value="major pentatonic">Pentatonic Major</option>
+          <option value="minor pentatonic">Pentatonic Minor</option>
         </select>
       </form>
-
-      <h2>Gamme {options.root} Majeur </h2>
       <Suspense fallback={`Loading...`}>
-        <Fretboard scaleOPtion={options} id="scales"/>
+        <Fretboard scaleOPtion={options} id="scales" />
       </Suspense>
 
-      <h2>Custom dots</h2>
+      {/* <h2>Custom dots</h2>
       <Suspense fallback={`Loading...`}>
-        <Fretboard dots={dots} id="dots"/>
-      </Suspense>
+        <Fretboard dots={dots} id="dots" />
+      </Suspense> */}
     </DefaultLayout>
   )
 }

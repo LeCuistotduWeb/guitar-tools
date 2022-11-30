@@ -1,1 +1,1 @@
-export type NoteType = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+export type NoteType = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];

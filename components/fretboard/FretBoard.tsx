@@ -1,10 +1,17 @@
-import { Fretboard as FretboardLib } from "@moonwave99/fretboard.js";
+import { Fretboard as FretboardLib, Systems } from "@moonwave99/fretboard.js";
 import { useEffect, useRef } from "react"
 
 type Props = {
     id: string,
     dots?: any[];
-    scaleOPtion?: { type: string, root: string } | null,
+    scaleOPtion?: {
+        type: string;
+        root: string;
+        box?: {
+            system: Systems;
+            box: string | number;
+        } | undefined;
+    },
 }
 
 const Fretboard = (props: Props) => {
